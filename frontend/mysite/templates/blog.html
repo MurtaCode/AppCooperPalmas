@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+ :root {
+  --gradient: linear-gradient(to left top, #0cdf28 10%, #7aee5a 90%) !important;
+}
+img {
+  width: 100%;
+  display:flexbox;
+  object-fit: cover;
+}
+
+body {
+  background:   #fff !important;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  background: rgba(33, 123, 71, 0.8);
+  color: rgba(250, 250, 250, 0.8);
+  margin-bottom: 2rem;
+  border-radius: 18px;
+  
+  
+}
+
+.user {
+  display: flex;
+  gap: .5rem;
+}
+
+.user__image {
+  border-radius: 50%;
+  position: relative;
+}
+
+.card__body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.card__body h4 {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+
+.user__info > small {
+  color: rgb(0, 0, 0);
+}
+
+
+
+.btn {
+  border: 5px solid;
+  border-image-slice: 1;
+  background: var(--gradient) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  border-image-source:  var(--gradient) !important; 
+  text-decoration: none;
+  transition: all .4s ease;
+}
+
+.btn:hover, .btn:focus {
+      background: var(--gradient) !important;
+  -webkit-background-clip: none !important;
+  -webkit-text-fill-color: #fff !important;
+  border: 5px solid #fff !important; 
+  box-shadow: #222 1px 0 10px;
+  text-decoration: underline;
+}
+
+</style>
+
+<header class="masthead">
+    <div class="overlay"></div>
+    <br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h3 class="site-heading my-4 mt-3" style="color:rgba(33, 123, 71, 0.8);"> <strong> Bem vindos ao CooperBlog </strong></h3>
+                    <p class="text-light" style="background-color: rgba(33, 123, 71, 0.8);">Todas as novidades e anúncios da cooperativa estão aqui
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1> 
+
+    </h1>
+    <h1>
+
+    </h1>
+</header>
+
+<br><br>
+<body>
+  
+
+<div class="container" style="display: flex; flex-wrap: wrap; justify-content: center;  max-width: 1200px; margin-block: 2rem; gap: 2rem;"> 
+    <div class="row">
+      
+        <!-- Blog Entries Column -->
+        <div class="col-md-8 mt-3 left">
+            {% for post in post_list %}
+            <div class="card" style="align-self: center;">           
+              <div class="card__header">
+                <img src="{{post.image.url}}" alt="card__image" class="card__image" width="auto" >
+              </div>
+              <div class="card__body">
+                <br>
+                
+                 <h4 style="font-size:large;" align="center">{{post.title}}</h4> 
+                 <br>
+                
+                
+              </div>
+              <div class="card__footer">
+                <div class="user align-content-lg-between">
+                <p>  <img src="https://mir-s3-cdn-cf.behance.net/projects/404/aedc9073021875.Y3JvcCwxMTAxLDg2MSwxNDksMjY5.png" alt="user__image" class="user__image"
+                 style="width: 50px; height:50px; margin: 15px; 
+                  max-width: 100%;  display: block;  object-fit: cover; clip-path: circle(50% at 50% 50%);"></p>
+                  <div class="user__info">
+                    <h5>{{post.author}}</h5>
+                    <small> <p>{{post.created_on.date.day}}/{{ post.created_on.date.month}}/{{post.created_on.date.year}}</p></small>                            
+                  </div>
+                
+                </div>
+                </div>
+                <br>
+                <a href="{% url 'post_detail' post.slug  %}" class="btn btn-danger">Ler mais...</a >
+                    <br>
+            </div>
+        
+            <br> 
+            {% endfor %}
+        </div>
+        {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
+    </div>
+</div>
+
+  
+</body>
+
+{%endblock%}
