@@ -10,19 +10,24 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
-from decouple import config
 import os
+from pathlib import Path
+import django_heroku
+from decouple import config
+
 
 # Configure Django App for Heroku.
-import django_heroku
+
 django_heroku.settings(locals())
+
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIRS = os.path.join(BASE_DIR,'templates')
 
+default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 
 
 # Quick-start development settings - unsuitable for production
@@ -34,7 +39,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =  config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', 'https://cooperpalmas.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'cooperpalmas.herokuapp.com']
 
 
 # Application definition
@@ -86,13 +91,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
+DATABASES = { 'default': config('DATABASE_URL', default=default_dburl, cast=dburl), }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -215,3 +214,5 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
