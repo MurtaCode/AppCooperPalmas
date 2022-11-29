@@ -12,13 +12,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
-import django_heroku
 from decouple import config
 
 
 # Configure Django App for Heroku.
 
-django_heroku.settings(locals())
 
 
 
@@ -34,12 +32,17 @@ default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+#SECRET_KEY = config('SECRET_KEY')
+
+SECRET_KEY='u6ct%^s+3sy=n*^pbwqxoh6znk%kw@y=51skrjy)t_vyxp+_a#'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =  config('DEBUG', default=False, cast=bool)
+#DEBUG =  config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', 'cooperpalmas.herokuapp.com']
+DEBUG=True
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
