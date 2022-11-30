@@ -1,0 +1,14 @@
+asgiref
+dj-database-url
+dj-static
+Django
+django-ckeditor
+django-jazzmin
+django-js-asset
+gunicorn
+Pillow
+psycopg2-binary
+python-decouple
+sqlparse
+static3
+whitenoise
